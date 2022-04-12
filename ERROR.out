@@ -2,16 +2,32 @@
 > quickstart@0.0.0 dev
 > node server.js
 
-/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/polar_wasm_api.js:611
-    var ret = new Error(getStringFromWasm0(arg0, arg1));
-              ^
+[oso][info]   QUERY RULE: allow(User {
+[oso][info]     name: 'larry',
+[oso][info]     roles: [ Role { name: 'admin', repository: [Repository] } ]
+[oso][info]   } TYPE `User`, "view", resource)
+[oso][info]     APPLICABLE_RULES:
+[oso][info]       allow(actor, action, resource) at line 1, column 1 of file main.polar
+[oso][info]     RULE: allow(actor, action, resource) if has_permission(actor, action, resource);
+[oso][info]       QUERY RULE: has_permission(_actor_11, _action_12, _resource_13)
+[oso][info]         APPLICABLE_RULES:
+[oso][info]           has_permission(actor: Actor{}, "view", user: User{}) at line 10, column 3 of file main.polar
+[oso][info]         RULE: has_permission(actor: Actor{}, "view", user: User{}) if has_role(actor, "colleague", user);
+[oso][info]           QUERY RULE: has_role(_actor_17, "colleague", _user_18)
+[oso][info]             APPLICABLE_RULES:
+[oso][info]               has_role(actor: User{}, "colleague", user: User{}) at line 16, column 1 of file main.polar
+[oso][info]               has_role(actor: Actor{}, "colleague", user: User{}) at line 8, column 3 of file main.polar
+[oso][info]             RULE: has_role(actor: User{}, "colleague", user: User{}) if actor.roles = _value_1 and actor_role in _value_1 and user.roles = _value_2 and user_role in _value_2 and _value_3 = _value_4 and actor_role.repository = _value_3 and user_role.repository = _value_4;
+Can't execute {"model":"Role","relations":[],"conditions":[[{"lhs":{"typeName":"Role","fieldName":"user_id"},"cmp":"Eq","rhs":{}}]],"types":{}}
+/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Query.js:212
+                    throw new errors_1.InvalidIteratorError(typeof value);
+                          ^
 
-OperationalError::InvalidState: Invalid state: unknown type for `_user_role_46`
-    at module.exports.__wbg_new_342a24ca698edd87 (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/polar_wasm_api.js:611:15)
-    at wasm://wasm/005625ca:wasm-function[1374]:0x137c99
-    at wasm://wasm/005625ca:wasm-function[104]:0xa3ca5
-    at wasm://wasm/005625ca:wasm-function[203]:0xce2be
-    at wasm://wasm/005625ca:wasm-function[1013]:0x132468
-    at Polar.buildDataFilter (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/polar_wasm_api.js:306:24)
-    at Oso.authorizedQuery (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Oso.js:237:42)
-    at async start (/home/ramon/is/git/oso-nodejs-quickstart/server.js:14:32)
+InvalidIteratorError: 'undefined' is not iterable
+    at /home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Query.js:212:27
+    at AsyncGenerator.next (<anonymous>)
+    at Query.nextCallResult (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Query.js:94:44)
+    at Query.handleNextExternal (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Query.js:217:35)
+    at async Query.start (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Query.js:287:25)
+    at async Oso.authorizedQuery (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Oso.js:231:26)
+    at async start (/home/ramon/is/git/oso-nodejs-quickstart/server.js:23:32)

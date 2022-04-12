@@ -1,11 +1,20 @@
-const { Oso, NotFoundError } = require("oso");
-const { User, Repository, users_db } = require("./models");
+const { Oso, Relation, NotFoundError } = require("oso");
+const { User, Role, Repository, users_db } = require("./models");
 const express = require("express");
 const dummyAdapter = require("./dummyAdapter");
 
 async function start() {
     const oso = new Oso();
-    oso.registerClass(User);
+    oso.registerClass(User, {
+        fields: {
+            roles: new Relation("many", "Role", "id", "user_id"),
+        }
+    });
+    oso.registerClass(Role, {
+        fields: {
+            repository: new Relation("one", "Repository", "repo_id", "id"),
+        }
+    });
     oso.registerClass(Repository);
     await oso.loadFiles(["main.polar"]);
 

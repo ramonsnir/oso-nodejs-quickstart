@@ -39,4 +39,4 @@ const users_db = {
     graham: new User("graham", [new Role("contributor", repos_db["oso"])]),
 };
 
-module.exports = { Repository, User, users_db };
+module.exports = { Repository, Role, User, users_db };
