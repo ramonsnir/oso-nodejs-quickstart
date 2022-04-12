@@ -18,7 +18,7 @@ class Role {
 
 class User {
     constructor(name, roles) {
-        this.name = name;
+        this.id = this.name = name;
         this.roles = roles;
     }
 
