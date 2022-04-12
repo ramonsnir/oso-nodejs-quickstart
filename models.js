@@ -1,41 +1,42 @@
 class Repository {
-  constructor(name, isPublic = false) {
-    this.name = name;
-    this.isPublic = isPublic;
-  }
+    constructor(name, isPublic = false) {
+        this.name = name;
+        this.isPublic = isPublic;
+    }
 
-  static getByName(name) {
-    return repos_db[name];
-  }
+    static getByName(name) {
+        return repos_db[name];
+    }
 }
 
 class Role {
-  constructor(name, repository) {
-    this.name = name;
-    this.repository = repository;
-  }
+    constructor(name, repository) {
+        this.name = name;
+        this.repository = repository;
+    }
 }
 
 class User {
-  constructor(roles) {
-    this.roles = roles;
-  }
+    constructor(name, roles) {
+        this.name = name;
+        this.roles = roles;
+    }
 
-  static getCurrentUser() {
-    return users_db["larry"];
-  }
+    static getCurrentUser() {
+        return users_db["larry"];
+    }
 }
 
 const repos_db = {
-  gmail: new Repository("gmail"),
-  react: new Repository("react", true),
-  oso: new Repository("oso"),
+    gmail: new Repository("gmail"),
+    react: new Repository("react", true),
+    oso: new Repository("oso"),
 };
 
 const users_db = {
-  larry: new User([new Role("admin", repos_db["gmail"])]),
-  anne: new User([new Role("maintainer", repos_db["react"])]),
-  graham: new User([new Role("contributor", repos_db["oso"])]),
+    larry: new User("larry", [new Role("admin", repos_db["gmail"])]),
+    anne: new User("anne", [new Role("maintainer", repos_db["react"])]),
+    graham: new User("graham", [new Role("contributor", repos_db["oso"])]),
 };
 
-module.exports = { Repository, User };
+module.exports = { Repository, User, users_db };

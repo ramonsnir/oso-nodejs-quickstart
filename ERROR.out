@@ -1,0 +1,17 @@
+
+> quickstart@0.0.0 dev
+> node server.js
+
+/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/polar_wasm_api.js:611
+    var ret = new Error(getStringFromWasm0(arg0, arg1));
+              ^
+
+OperationalError::InvalidState: Invalid state: unknown type for `_user_role_46`
+    at module.exports.__wbg_new_342a24ca698edd87 (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/polar_wasm_api.js:611:15)
+    at wasm://wasm/005625ca:wasm-function[1374]:0x137c99
+    at wasm://wasm/005625ca:wasm-function[104]:0xa3ca5
+    at wasm://wasm/005625ca:wasm-function[203]:0xce2be
+    at wasm://wasm/005625ca:wasm-function[1013]:0x132468
+    at Polar.buildDataFilter (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/polar_wasm_api.js:306:24)
+    at Oso.authorizedQuery (/home/ramon/is/git/oso-nodejs-quickstart/node_modules/oso/dist/src/Oso.js:237:42)
+    at async start (/home/ramon/is/git/oso-nodejs-quickstart/server.js:14:32)
