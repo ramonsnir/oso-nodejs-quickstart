@@ -1,0 +1,33 @@
+
+> quickstart@0.0.0 dev
+> node server.js
+
+[oso][info]   QUERY RULE: allow(User {
+[oso][info]     name: 'larry',
+[oso][info]     roles: [ Role { name: 'admin', repository: [Repository] } ]
+[oso][info]   } TYPE `User`, "view", resource)
+[oso][info]     APPLICABLE_RULES:
+[oso][info]       allow(actor, action, resource) at line 1, column 1 of file main.polar
+[oso][info]     RULE: allow(actor, action, resource) if has_permission(actor, action, resource);
+[oso][info]       QUERY RULE: has_permission(_actor_11, _action_12, _resource_13)
+[oso][info]         APPLICABLE_RULES:
+[oso][info]           has_permission(actor: Actor{}, "view", user: User{}) at line 10, column 3 of file main.polar
+[oso][info]         RULE: has_permission(actor: Actor{}, "view", user: User{}) if has_role(actor, "colleague", user);
+[oso][info]           QUERY RULE: has_role(_actor_17, "colleague", _user_18)
+[oso][info]             APPLICABLE_RULES:
+[oso][info]               has_role(actor: User{}, "colleague", user: User{}) at line 16, column 1 of file main.polar
+[oso][info]               has_role(actor: Actor{}, "colleague", user: User{}) at line 8, column 3 of file main.polar
+[oso][info]             RULE: has_role(actor: User{}, "colleague", user: User{}) if actor.roles = _value_1 and actor_role in _value_1 and user.roles = _value_2 and user_role in _value_2 and _value_3 = _value_4 and actor_role.repository = _value_3 and user_role.repository = _value_4;
+Can't execute {"model":"Role","relations":[],"conditions":[[{"lhs":{"typeName":"Role","fieldName":"user_id"},"cmp":"Eq","rhs":{}}]],"types":{}}
+[oso][info]             RULE: has_role(actor: Actor{}, "colleague", user: User{}) if has_role(actor, "self", user);
+[oso][info]               QUERY RULE: has_role(_actor_49, "self", _user_50)
+[oso][info]                 APPLICABLE_RULES:
+[oso][info]                   has_role(actor: User{}, "self", user: User{}) at line 14, column 1 of file main.polar
+[oso][info]                 RULE: has_role(actor: User{}, "self", user: User{}) if actor = user;
+[oso][info]   RESULT: {
+[oso][info]     resource: User {
+[oso][info]     name: 'larry',
+[oso][info]     roles: [ Role { name: 'admin', repository: [Repository] } ]
+[oso][info]   } TYPE `User`
+[oso][info]   }
+{"model":"User","relations":[],"conditions":[[{"lhs":{"typeName":"User"},"cmp":"Eq","rhs":{"value":{"name":"larry","roles":[{"name":"admin","repository":{"name":"gmail","isPublic":false}}]}}}]],"types":{}}

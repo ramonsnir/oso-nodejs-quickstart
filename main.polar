@@ -1,7 +1,22 @@
 allow(actor, action, resource) if
   has_permission(actor, action, resource);
 
-actor User {}
+actor User {
+  permissions = ["view", "edit"];
+  roles = ["colleague", "self"];
+
+  "colleague" if "self";
+
+  "view" if "colleague";
+  "edit" if "self";
+}
+
+has_role(actor: User, "self", user: User) if actor = user;
+
+has_role(actor: User, "colleague", user: User) if
+  actor_role in actor.roles and
+  user_role in user.roles and
+  actor_role.repository = user_role.repository;
 
 resource Repository {
   permissions = ["read", "push", "delete"];
